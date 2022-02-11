@@ -1,4 +1,5 @@
 import encodings
+from pyclbr import Function
 from time import strftime
 from tkinter import messagebox
 import sqlite3
@@ -63,9 +64,9 @@ class Observable():
     def quitar(self, observador):
         self.observadores.remove(observador)
 
-    def notificar(self, metodo):
+    def notificar(self):
         for observador in self.observadores:
-            return observador.update(metodo)
+            return observador.update()
 
 
 class Observador():
@@ -74,7 +75,8 @@ class Observador():
         self.observar = objeto
         self.observar.agregar(self)
     
-    def update(self, metodo):
+    def update(self):
+        metodo = self.observar.get_estado()
         print("Se ejecuto el metodo: %s" % metodo)
 
 
@@ -82,6 +84,8 @@ class Observador():
 class Abmc(Observable):
 
     def __init__(self,):
+        self._estado = None
+
         try:        
             db.connect()
             if not db.table_exists(Gastos):
@@ -92,6 +96,12 @@ class Abmc(Observable):
             print("Base de datos creada con éxito")
         finally:
             db.close()
+    
+    def set_estado(self, *args):
+        self._estado = args
+
+    def get_estado(self,):
+        return self._estado
 
 
     # Carga la tabla de la DB en treeview.
@@ -142,9 +152,8 @@ class Abmc(Observable):
             self.info_db_treeview(tree)
             self.limpiar_celdas(*args)
             print("Carga exitosa")
-            #print(FunctionName)
-            #Observable.notificar(self, self.__name__)
-            print(Abmc.alta_db.__name__)
+            self.set_estado("Alta")
+            self.notificar()
 
 
     @registro_log

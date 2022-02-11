@@ -5,3 +5,7 @@
 original/
 *.pptx
 *.png
+*.zip
+pyQt/
+.ipynb_checkpoints/
+__pycache__/
