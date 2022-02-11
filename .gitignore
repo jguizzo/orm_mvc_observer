@@ -1,0 +1,7 @@
+*.db
+*.log
+*.pyc
+*.pyo
+original/
+*.pptx
+*.png
