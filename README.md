@@ -6,5 +6,5 @@ Trabajo final, Diplomatura en Python 3. Implementanto interfaz grafica con tkint
 
 ## Ventana de la aplicación
 <p align="center">
-<img src="app.jpg" width="400"/>
+<img src="app.png" width="400"/>
 </p>
